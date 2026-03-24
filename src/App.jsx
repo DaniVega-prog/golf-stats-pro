@@ -884,7 +884,7 @@ function TeamApp({ currentUser, onLogout, onShowLive }) {
                     </div>
                   </div>
                 ))}
-                {isCoach && (
+                {(isCoach || currentUser.role === "player") && (
                   <>
                     <h3 style={{ fontSize:15, fontWeight:500, margin:"20px 0 8px" }}>Enter scores</h3>
                     {removedPlayers.size>0 && (
