@@ -219,6 +219,7 @@ function LivePublic({ onBack }) {
                     ))}
                   </tbody>
                 </table>
+                <details style={{ marginTop:12 }}><summary style={{ cursor:"pointer", fontSize:13, color:G.gold, fontWeight:500, listStyle:"none", padding:"6px 0" }}>▼ View scorecards</summary>{t.players.map(p=>{ const sc=lr.scores?.[p.id]||[]; return (<div key={p.id} style={{ marginTop:10, padding:"10px 14px", background:"var(--color-background-secondary)", borderRadius:10 }}><p style={{ margin:"0 0 8px", fontWeight:500, fontSize:13 }}>{p.name}</p><div style={{ display:"grid", gridTemplateColumns:"repeat(9, 1fr)", gap:4 }}>{Array.from({length:course.holes}).map((_,i)=>{ const hp=course.holePars?.[i]; const val=sc[i]; const diff=val!==null&&val!==undefined&&hp?val-hp:null; return (<div key={i} style={{ textAlign:"center" }}><p style={{ margin:"0 0 1px", fontSize:10, color:"var(--color-text-secondary)" }}>H{i+1}</p>{hp&&<p style={{ margin:"0 0 2px", fontSize:10, fontWeight:500, color:G.gold }}>P{hp}</p>}<div style={{ padding:"4px 2px", borderRadius:8, background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", fontSize:12, fontWeight:diff!==null?500:400, color:diff===null?"var(--color-text-secondary)":diff<0?G.success:diff>0?G.danger:"var(--color-text-primary)", minHeight:26, display:"flex", alignItems:"center", justifyContent:"center" }}>{val??"—"}</div></div>); })}</div></div>); })}</details>
               </div>
             );
           })
