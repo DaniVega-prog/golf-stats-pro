@@ -927,7 +927,7 @@ function TeamApp({ currentUser, onLogout, onShowLive }) {
                             </div>
                           </div>
                         ))}
-                        {isCoach && <button style={{ ...S.btnDanger, marginTop:8 }} onClick={()=>{ setActiveTournId(t.id); setActiveRoundIdx(t.rounds.findIndex(r=>r.status==="live")); setLiveScores(lr.scores); }}>Enter scores</button>}
+                        <button style={{ ...S.btnDanger, marginTop:8 }} onClick={()=>{ setActiveTournId(t.id); setActiveRoundIdx(t.rounds.findIndex(r=>r.status==="live")); setLiveScores(lr.scores||{}); }}>Enter scores</button>
                       </div>
                     );
                   })
