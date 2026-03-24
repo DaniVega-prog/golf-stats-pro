@@ -50,7 +50,7 @@ function CourseSearch({ onSave, onCancel }) {
     timer.current = setTimeout(async () => {
       setLoading(true);
       try {
-        const res = await fetch("https://api.anthropic.com/v1/messages", {
+        const res = await fetch("/.netlify/functions/claude", {
           method:"POST", headers:{ "Content-Type":"application/json" },
           body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:800,
             system:"Return ONLY a raw JSON array of up to 4 golf courses. Each: {name, location, par, slope, rating, holes}. No markdown.",
