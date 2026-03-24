@@ -572,8 +572,24 @@ function TeamApp({ currentUser, onLogout, onShowLive }) {
     setActiveTournId(tournId); setActiveRoundIdx(roundIdx); setLiveScores({...scores}); setRemovedPlayers(new Set()); setTab("live");
   };
 
-  const updateScore = (pid, hole, val) => {
-    setLiveScores(prev=>{ const u={...prev,[pid]:[...(prev[pid]||[])]}; u[pid][hole]=val===""?null:Number(val); return u; });
+  const updateScore = async (pid, hole, val) => {
+    const newVal = val === "" ? null : Number(val);
+    setLiveScores(prev => {
+      const u = { ...prev, [pid]: [...(prev[pid] || [])] };
+      u[pid][hole] = newVal;
+      return u;
+    });
+    if (!currentUser?.teamId || activeTournId === null || activeRoundIdx === null) return;
+    const tourn = team.tournaments.find(t => t.id === activeTournId);
+    if (!tourn) return;
+    const updatedScores = { ...(tourn.rounds[activeRoundIdx].scores || {}) };
+    if (!updatedScores[pid]) updatedScores[pid] = Array(18).fill(null);
+    updatedScores[pid] = [...updatedScores[pid]];
+    updatedScores[pid][hole] = newVal;
+    const updatedTournaments = team.tournaments.map(t => t.id !== activeTournId ? t : {
+      ...t, rounds: t.rounds.map((r, i) => i !== activeRoundIdx ? r : { ...r, scores: updatedScores })
+    });
+    await updateDoc(doc(db, "teams", currentUser.teamId), { tournaments: updatedTournaments });
   };
 
   const finishRound = async () => {
