@@ -285,7 +285,8 @@ function AuthScreen({ onLogin, onRegister }) {
           <button key={m} onClick={()=>{ setMode(m); setError(""); }} style={{ ...S.navBtn(mode===m,false), flex:1 }}>{l}</button>
         ))}
       </div>
-     {mode==="live" && <LivePublic onBack={()=>setMode("login")} />} {mode==="login" && (
+     {mode==="live" && <LivePublic onBack={()=>setMode("login")} />} 
+      {mode==="login" && (
         <div style={S.goldCard}>
           <p style={{ margin:"0 0 14px", fontWeight:500, fontSize:15 }}>Sign in to your account</p>
           {error && <p style={{ margin:"0 0 10px", fontSize:13, color:G.danger }}>{error}</p>}
