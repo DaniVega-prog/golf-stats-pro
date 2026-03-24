@@ -281,11 +281,11 @@ function AuthScreen({ onLogin, onRegister }) {
         <p style={{ margin:"6px 0 0", fontSize:13, color:G.goldLight, opacity:0.8 }}>NCAA / NAIA Team Management</p>
       </div>
       <div style={{ display:"flex", gap:6, marginBottom:20 }}>
-        {[["login","Sign in"],["register","Register"]].map(([m,l])=>(
+        {[["login","Sign in"],["register","Register"],["live","🔴 Live"]].map(([m,l])=>(
           <button key={m} onClick={()=>{ setMode(m); setError(""); }} style={{ ...S.navBtn(mode===m,false), flex:1 }}>{l}</button>
         ))}
       </div>
-      {mode==="login" && (
+     {mode==="live" && <LivePublic onBack={()=>setMode("login")} />} {mode==="login" && (
         <div style={S.goldCard}>
           <p style={{ margin:"0 0 14px", fontWeight:500, fontSize:15 }}>Sign in to your account</p>
           {error && <p style={{ margin:"0 0 10px", fontSize:13, color:G.danger }}>{error}</p>}
